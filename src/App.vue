@@ -1,5 +1,7 @@
 <template>
   <div id="app">
+
+    <Navigation />
     
     <div :class="{ 'visible': visibleFeedback  }" class="feedback-message">
       <div class="square">
@@ -10,12 +12,12 @@
 
     <div class="leaderboard-wrapper">
       <div class="leaderboard">
-        <h2>Your catches:</h2>
+        <h2>Your catches</h2>
         <h1>{{ captured }}</h1>
       </div>
     </div>
   
-    <div class="preview"
+    <!--div class="preview"
       :style="{
         'background-image': `url(${ previewImageSrc })`,
         'visibility': previewVisibility,
@@ -23,7 +25,7 @@
         'max-width': `${ computedWidth }px`,
         'width': `${ previewWidth }`
       }"
-    />
+    /-->
 
     <div :class="{ 'loading': isLoading }" class="shutter-wrapper"
       :style="{
@@ -58,6 +60,7 @@
 </template>
 
 <script>
+import Navigation from './components/Navigation'
 
 const Clarifai = require('clarifai')
 
@@ -121,6 +124,9 @@ const generateErrorMsg = () => {
 
 export default {
   name: 'app',
+  components:{
+    Navigation
+  },
   data(){
     return {
       computedWidth: 640,
@@ -131,7 +137,7 @@ export default {
       previewImageSrc: '',
       isLoading: false,
       shutterHeight: 80,
-      shutterFill: '#C62828',
+      shutterFill: '#F50057',
       previewEl: null,
       hasMatch: null,
       visibleFeedback: false,
@@ -161,7 +167,7 @@ export default {
         this.feedbackIcon = d.icon
         this.visibleFeedback = true
 
-        this.fadeOutPreview()
+        // this.fadeOutPreview()
         
         setTimeout(()=>{
           this.visibleFeedback = false
@@ -199,7 +205,7 @@ export default {
         this.previewHeight = this.computedHeight + 'px'
         this.previewVisibility = 'visible'
 
-        this.previewImageSrc = e.target.result
+        // this.previewImageSrc = e.target.result
 
         // Extract base64 string data only, for Clarifai
         let img = e.target.result.replace(/^data:image\/[a-z]+;base64,/, '')
@@ -265,6 +271,7 @@ body{
   max-height: 100vh;
   max-width: 100vw;
   overflow: hidden;
+  background: #8E24AA;
 }
 
 .feedback-message{
@@ -283,7 +290,7 @@ body{
     padding: 50px 15px;
     background: rgba(255,255,255, 1);
     border-radius: 4px;
-    width: 40vw;
+    width: 60vw;
     opacity: 0;
     transform: translateY(-100px);
     transition: .5s opacity, .5s transform;
@@ -310,17 +317,47 @@ body{
 }
 
 .leaderboard-wrapper{
+  position: relative;
   display: flex;
   height: 100vh;
   width: 100%;
   align-items: center;
   justify-content: space-around;
+  overflow: hidden;
+  
+  &:after, &:before{
+    position: absolute;
+    content: '';
+    display: block;
+    width: 100vw;
+    height: 100vh;
+    background: red;
+    z-index: -1;
+  }
+  &:before{
+    background: #4A148C;
+    transform: rotate(10deg);
+    left: -70vw;
+    top: -10vh;
+    height: 110vh;
+  }
+  &:after{
+    background: #AB47BC;
+    transform: rotate(30deg);
+    bottom: -30vh;
+    right: -50vw;
+  }
+
   .leaderboard{
     padding: 15px;
-    background: palegreen;
+    background: #F50057;
+    color: #FFF;
     border-radius: 4px;
     margin-bottom: 150px;
     text-align: center;
+    -webkit-box-shadow: 0px 0px 36px -8px rgba(0,0,0,0.75);
+    -moz-box-shadow: 0px 0px 36px -8px rgba(0,0,0,0.75);
+    box-shadow: 0px 0px 36px -8px rgba(0,0,0,0.75);
   }
 }
 
@@ -344,7 +381,7 @@ body{
 }
 
 .shutter-wrapper{
-  position: absolute;
+  position: fixed;
   bottom: 0;
   width: 100%;
   height: 8px;
