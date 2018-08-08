@@ -40,9 +40,6 @@
 
 <script>
 
-import tracking from 'jstracking'
-// import fabric from 'fabric'
-
 const Clarifai = require('clarifai')
 
 const app = new Clarifai.App({
