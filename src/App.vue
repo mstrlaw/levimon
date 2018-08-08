@@ -87,7 +87,7 @@ export default {
           .predict(process.env.VUE_APP_PREDICT_MODEL, { base64: img })
           .then((r) => {
             if(r.status.code === 10000){
-              console.log(response)
+              console.log(r)
               alert('got response from clarifai')
             }
           },
