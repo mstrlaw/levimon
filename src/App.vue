@@ -60,7 +60,7 @@
 </template>
 
 <script>
-import Navigation from './components/Navigation.vue'
+import Navigation from './components/Navigation'
 
 const Clarifai = require('clarifai')
 
