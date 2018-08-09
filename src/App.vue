@@ -449,7 +449,6 @@ body{
       .image-input + label {
         height: 120px;
         width: 120px;
-        animation-duration: 2s;
       }
     }
   }
@@ -460,7 +459,6 @@ body{
       .image-input + label {
         height: 120px;
         width: 120px;
-        animation-duration: 2s;
       }
     }
   }
