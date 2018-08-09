@@ -27,9 +27,9 @@
       }"
     /-->
 
-    <div :class="{ 'loading': isLoading }" class="shutter-wrapper"
+    <div :class="{ 'loading': isLoading, 'app-loading': appLoading }" class="shutter-wrapper"
       :style="{
-        'height': `${ shutterHeight }px`
+        'height': `${ shutterHeight }`
       }"
       >
       <div class="shutter">
@@ -136,7 +136,8 @@ export default {
       previewWidth: '100%',
       previewImageSrc: '',
       isLoading: false,
-      shutterHeight: 80,
+      appLoading: true,
+      shutterHeight: '100vh',
       shutterFill: '#F50057',
       previewEl: null,
       hasMatch: null,
@@ -182,17 +183,22 @@ export default {
 
     }
   },
+  
   mounted(){
     window.addEventListener('load', () => {
       this.computedWidth = window.innerWidth
       this.computedHeight = window.innerHeight
       this.previewEl = document.getElementById('imgLoader')
+      setTimeout(()=>{
+        this.appLoading = false
+        this.shutterHeight = '80px'
+      }, 1000)
     })
   },
   methods:{
     processImage(event){
       this.isLoading = true
-      this.shutterHeight = this.computedHeight
+      this.shutterHeight = this.computedHeight+'px'
       this.identifyBrand(event.target.files[0])
     },
     identifyBrand(imageData){
@@ -205,9 +211,7 @@ export default {
         this.previewHeight = this.computedHeight + 'px'
         this.previewVisibility = 'visible'
 
-        // this.previewImageSrc = e.target.result
-
-        // Extract base64 string data only, for Clarifai
+        // Extract base64 string data only for Clarifai
         let img = e.target.result.replace(/^data:image\/[a-z]+;base64,/, '')
         
 
@@ -215,9 +219,10 @@ export default {
           .predict(process.env.VUE_APP_PREDICT_MODEL, { base64: img })
           .then((r) => {
             if (r.status.code === 10000) {
+              
               this.isLoading = false
-              this.shutterHeight = 80
-              console.log(r)
+              this.shutterHeight = 80+'px'
+
               if (r.outputs.length > 0) {
                 if (Object.keys(r.outputs[0].data).length > 0) {
                   r.outputs[0].data.regions.map( el => {
@@ -358,6 +363,10 @@ body{
     -webkit-box-shadow: 0px 0px 36px -8px rgba(0,0,0,0.75);
     -moz-box-shadow: 0px 0px 36px -8px rgba(0,0,0,0.75);
     box-shadow: 0px 0px 36px -8px rgba(0,0,0,0.75);
+    animation-name: float; 
+    animation-duration: 4s;
+    animation-iteration-count: infinite;
+    animation-timing-function: linear;
   }
 }
 
@@ -415,12 +424,10 @@ body{
       -moz-box-shadow: 0px 0px 36px -8px rgba(0,0,0,0.75);
       box-shadow: 0px 0px 36px -8px rgba(0,0,0,0.75);
       transition: height .5s, width .5s;
-      svg{
-        animation-name: rotate; 
-        animation-duration: 20s;
-        animation-iteration-count: infinite;
-        animation-timing-function: linear;
-      }
+      animation-name: rotate; 
+      animation-duration: 20s;
+      animation-iteration-count: infinite;
+      animation-timing-function: linear;
     }
 
     .image-input:focus + label,
@@ -442,12 +449,34 @@ body{
       .image-input + label {
         height: 120px;
         width: 120px;
-        svg{
-          animation-duration: 2s;
-        }
+        animation-duration: 2s;
       }
     }
   }
+  &.app-loading{
+    z-index: 600;
+    .shutter{
+      background: #FFF;
+      .image-input + label {
+        height: 120px;
+        width: 120px;
+        animation-duration: 2s;
+      }
+    }
+  }
+}
+
+@keyframes float {
+  0% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(10px);
+  }
+  100% {
+    transform: translateY(0);
+  }
+  
 }
 
 @keyframes rotate {

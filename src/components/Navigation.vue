@@ -33,7 +33,7 @@
 <style lang="scss">
 .navigation{
   .nav-toggle{
-    position: absolute;
+    position: fixed;
     right: 15px;
     top: 15px;
     padding: 6px 4px;
@@ -71,7 +71,7 @@
   &.open{
     .menu{
       transform: translateY(0);
-      transition: .5s transform;
+      transition: .3s transform;
     }
   }
 }
