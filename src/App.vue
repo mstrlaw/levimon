@@ -15,17 +15,9 @@
         <h2>Your catches</h2>
         <h1>{{ captured }}</h1>
       </div>
+      leaderboard here
+      {{ userid }}
     </div>
-  
-    <!--div class="preview"
-      :style="{
-        'background-image': `url(${ previewImageSrc })`,
-        'visibility': previewVisibility,
-        'height': `${ previewHeight }`,
-        'max-width': `${ computedWidth }px`,
-        'width': `${ previewWidth }`
-      }"
-    /-->
 
     <div :class="{ 'loading': isLoading, 'app-loading': appLoading }" class="shutter-wrapper"
       :style="{
@@ -129,12 +121,8 @@ export default {
   },
   data(){
     return {
-      computedWidth: 640,
-      computedHeight: 480,
-      previewVisibility: 'hidden',
-      previewHeight: 0,
-      previewWidth: '100%',
-      previewImageSrc: '',
+      computedWidth: 0,
+      computedHeight: 0,
       isLoading: false,
       appLoading: true,
       shutterHeight: '100vh',
@@ -147,6 +135,9 @@ export default {
     }
   },
   computed:{
+    userid(){
+      return this.$store.getters.user
+    },
     captured(){
       return this.$store.getters.capturedCount
     }
@@ -159,6 +150,7 @@ export default {
       if (this.hasMatch) {
         d = generateSuccessMsg()
         this.$store.dispatch('increaseCapture')
+        // this.$store.dispatch('queryTest')
       } else if (!this.hasMatch && typeof this.hasMatch == 'boolean') {
         d = generateErrorMsg()
       }
@@ -167,8 +159,6 @@ export default {
         this.feedbackMsg = d.sentence
         this.feedbackIcon = d.icon
         this.visibleFeedback = true
-
-        // this.fadeOutPreview()
         
         setTimeout(()=>{
           this.visibleFeedback = false
@@ -189,6 +179,7 @@ export default {
       this.computedWidth = window.innerWidth
       this.computedHeight = window.innerHeight
       this.previewEl = document.getElementById('imgLoader')
+
       setTimeout(()=>{
         this.appLoading = false
         this.shutterHeight = '80px'
@@ -207,9 +198,6 @@ export default {
 
       reader.onload = (e) => {
         this.previewEl.setAttribute('src', e.target.result)
-
-        this.previewHeight = this.computedHeight + 'px'
-        this.previewVisibility = 'visible'
 
         // Extract base64 string data only for Clarifai
         let img = e.target.result.replace(/^data:image\/[a-z]+;base64,/, '')
@@ -254,10 +242,6 @@ export default {
 
       reader.readAsDataURL(imageData)
     },
-    fadeOutPreview(){
-      this.previewEl.removeAttribute('src')
-      this.previewImageSrc = ''
-    }
   }
 }
 </script>
@@ -324,10 +308,11 @@ body{
 .leaderboard-wrapper{
   position: relative;
   display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
   height: 100vh;
   width: 100%;
-  align-items: center;
-  justify-content: space-around;
   overflow: hidden;
   
   &:after, &:before{
@@ -358,7 +343,8 @@ body{
     background: #F50057;
     color: #FFF;
     border-radius: 4px;
-    margin-bottom: 150px;
+    margin-bottom: 15px;
+    margin-top: -50px;
     text-align: center;
     -webkit-box-shadow: 0px 0px 36px -8px rgba(0,0,0,0.75);
     -moz-box-shadow: 0px 0px 36px -8px rgba(0,0,0,0.75);
