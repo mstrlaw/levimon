@@ -15,8 +15,7 @@
         <h2>Your catches</h2>
         <h1>{{ captured }}</h1>
       </div>
-      leaderboard here
-      {{ userid }}
+      <!-- leaderboard here {{ userid }} -->
     </div>
 
     <div :class="{ 'loading': isLoading, 'app-loading': appLoading }" class="shutter-wrapper"
