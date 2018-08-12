@@ -6,10 +6,27 @@
       <span></span>
     </a>
     <div class="menu">
-      <a href="#" class="nav-link">Hello</a>
-      <a href="#" class="nav-link">Goodbye</a>
-      <a href="#" class="nav-link">Hello</a>
-      <a href="#" class="nav-link">Goodbye</a>
+      <div class="about">
+        <h3>Levimon? What's this?</h3>
+        <p>Just a web based game who's purpose is to "capture" as many people wearing the classic Levis t-shirt.</p>
+        <h3>How?</h3>
+        <p>1) Use the shutter icon on the bottom to launch your camera.</p>
+        <p>2) Point at someone wearing a Levis t-shirt.</p>
+        <p>3) Take a photo.</p>
+        <p>4) Score!</p>
+        <h3>Why?</h3>
+        <p>Because the amount of people wearing it is too damn high! And it was a fun thing to build and try in the wild.</p>
+        <p>Read more about it <a href="#" target="_blank">here</a></p>
+        <hr>
+        <small>Built by <a href="https://mstrlaw.com" target="_blank">mstrlaw</a> using <a href="https://vuejs.org/" target="_blank">VueJS</a> &amp; <a href="https://clarifai.com/" target="_blank">Clarifai</a>.<br>Hosted on <a href="https://www.netlify.com/" target="_blank">Netlify</a></small>
+        <small>
+           <div>Shutter icon made by <a href="http://www.freepik.com" title="Freepik">Freepik</a> from <a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a> is licensed by <a href="http://creativecommons.org/licenses/by/3.0/" title="Creative Commons BY 3.0" target="_blank">CC 3.0 BY</a></div>
+        </small>
+      </div>
+      <!--a href="#" class="nav-link">For</a>
+      <a href="#" class="nav-link">future</a>
+      <a href="#" class="nav-link">use</a>
+      <a href="#" class="nav-link">maybe?</a-->
     </div>
   </nav>
 </template>
@@ -62,6 +79,9 @@
     z-index: 500;
     transform: translateY(100vh);
     transition: .5s transform;
+    .about{
+      padding: 15px;
+    }
     .nav-link{
       padding: 10px 15px;
       font-size: 1.4em;

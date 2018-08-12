@@ -1,4 +1,12 @@
-A Pokemon style game to capture people wearing Levi's tshirts
+##Levimon
+A PokemonGo style game to capture people wearing Levi's t-shirts.
 
-####Credits
-Shutter icon by <div>Icons made by <a href="http://www.freepik.com" title="Freepik">Freepik</a> from <a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a> is licensed by <a href="http://creativecommons.org/licenses/by/3.0/" title="Creative Commons BY 3.0" target="_blank">CC 3.0 BY</a></div>
+####What
+A VueJS app that uses Clarifai brand recognition model that looks out for the Levis brand.
+
+####Why
+There's just too many people wearing the Levis t-shirt! Why not make a game of it? Read more about it on [medium](http://example.com).
+
+Try it out, it's hosted on [Netlify](https://suspicious-hawking-79fe18.netlify.com).
+
+Have fun :)
