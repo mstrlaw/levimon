@@ -15,7 +15,6 @@
         <h2>Your catches</h2>
         <h1>{{ captured }}</h1>
       </div>
-      <!-- leaderboard here {{ userid }} -->
     </div>
 
     <Shutter
@@ -34,9 +33,7 @@ import Shutter from './components/Shutter'
 
 const Clarifai = require('clarifai')
 
-const app = new Clarifai.App({
- apiKey: process.env.VUE_APP_CLARIFAI_KEY
-})
+const clarifai = new Clarifai.App({ apiKey: process.env.VUE_APP_CLARIFAI_KEY })
 
 let reader = new FileReader()
 
@@ -105,7 +102,6 @@ export default {
       isLoading: false,
       appLoading: true,
       shutterHeight: '100vh',
-      previewEl: null,
       hasMatch: null,
       visibleFeedback: false,
       feedbackMsg: '',
@@ -156,7 +152,6 @@ export default {
     window.addEventListener('load', () => {
       this.computedWidth = window.innerWidth
       this.computedHeight = window.innerHeight
-      this.previewEl = document.getElementById('imgLoader')
 
       setTimeout(()=>{
         this.appLoading = false
@@ -173,13 +168,10 @@ export default {
       let foundBrand = false
 
       reader.onload = (e) => {
-        this.previewEl.setAttribute('src', e.target.result)
 
-        // Extract base64 string data only for Clarifai
         let img = e.target.result.replace(/^data:image\/[a-z]+;base64,/, '')
         
-
-        app.models
+        clarifai.models
           .predict(process.env.VUE_APP_PREDICT_MODEL, { base64: img })
           .then((r) => {
             if (r.status.code === 10000) {
