@@ -1,6 +1,8 @@
 ## Levimon
 A PokemonGo style game to capture people wearing Levi's t-shirts.
 
+![preview](https://github.com/mstrlaw/levimon/blob/master/public/desktop_test.gif)
+
 #### What
 A VueJS app that uses Clarifai brand recognition model that looks out for the Levis brand.
 
