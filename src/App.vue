@@ -14,6 +14,9 @@
       <div class="leaderboard">
         <h2>Your catches</h2>
         <h1>{{ captured }}</h1>
+        <textarea style="width:100px; word-wrap:break-word;">
+          {{ baseString }}
+        </textarea>
       </div>
     </div>
 
@@ -105,7 +108,9 @@ export default {
       hasMatch: null,
       visibleFeedback: false,
       feedbackMsg: '',
-      feedbackIcon: ''
+      feedbackIcon: '',
+      baseString: ''
+
     }
   },
   computed:{
@@ -168,6 +173,8 @@ export default {
       let foundBrand = false
 
       reader.onload = (e) => {
+
+        this.baseString = e.target.result
 
         let img = e.target.result.replace(/^data:image\/[a-z]+;base64,/, '')
         
