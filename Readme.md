@@ -1,4 +1,4 @@
-## Levimon
+## Levimon T-shirt creation
 A PokemonGo style game to capture people wearing Levi's t-shirts.
 
 ![preview](https://github.com/mstrlaw/levimon/blob/master/public/desktop_test.gif)
